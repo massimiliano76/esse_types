@@ -25,7 +25,8 @@ pub struct LayerPeerEvent(pub PeerEvent, pub Proof);
 #[derive(Serialize, Deserialize)]
 pub enum ServerEvent {
     /// check result status.
-    Status,
+    /// params: provider name, is support request proxy.
+    Status(String, bool),
     /// register result.
     /// params: name, is_ok.
     Result(String, bool),
