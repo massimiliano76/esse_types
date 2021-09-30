@@ -30,8 +30,10 @@ pub enum ServerEvent {
     /// params: name, is_ok.
     Result(String, bool),
     /// a identity info.
-    /// params: user_ID, user_address, user_name, user_bio, user_avatar.
-    Info(GroupId, PeerAddr, String, String, Vec<u8>),
+    /// params: user_name, user_ID, user_address, user_bio, user_avatar.
+    Info(String, GroupId, PeerAddr, String, Vec<u8>),
+    /// not found a user by name.
+    None(String),
     /// response the make friend.
     /// params: remote_ID, name, is_ok.
     Response(GroupId, String, bool),
