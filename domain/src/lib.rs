@@ -35,6 +35,12 @@ pub enum ServerEvent {
     Info(String, GroupId, PeerAddr, String, Vec<u8>),
     /// not found a user by name.
     None(String),
+    /// current name is active.
+    /// params: name, is_actived
+    Actived(String, bool),
+    /// current name is deleted.
+    /// params: name.
+    Deleted(String),
     /// response the make friend.
     /// params: remote_ID, name, is_ok.
     Response(GroupId, String, bool),
