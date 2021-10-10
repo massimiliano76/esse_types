@@ -138,7 +138,7 @@ pub enum JoinProof {
 pub enum CheckType {
     /// allow to create new group.
     Allow,
-    /// cannot created, used all times.
+    /// cannot created, remain = 0.
     None,
     /// account is suspended.
     Suspend,
@@ -169,8 +169,8 @@ pub enum LayerEvent {
     /// check if account has permission to create group, and supported group types.
     Check,
     /// result check.
-    /// params: check type, supported_group_types.
-    CheckResult(CheckType, Vec<GroupType>),
+    /// params: check type, provider name, remain, supported_group_types.
+    CheckResult(CheckType, String, i64, Vec<GroupType>),
     /// create a Group Chat.
     /// params: group_info, proof.
     Create(GroupInfo, Proof),
