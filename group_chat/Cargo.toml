@@ -2,7 +2,7 @@
 name = "group-chat_types"
 version = "0.1.0"
 authors = ["Contact <contact@cypherlink.io>"]
-edition = "2018"
+edition = "2021"
 readme = "README.md"
 description = "ESSE group chat service types."
 repository = "https://github.com/cympletech/group-chat"

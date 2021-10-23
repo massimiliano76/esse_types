@@ -2,7 +2,7 @@
 name = "domain_types"
 version = "0.1.0"
 authors = ["Contact <contact@cypherlink.io>"]
-edition = "2018"
+edition = "2021"
 readme = "README.md"
 description = "ESSE domain service types."
 repository = "https://github.com/cympletech/domain"
