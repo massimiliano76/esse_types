@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use tdn_did::Proof;
-use tdn_types::{group::GroupId, primitive::PeerAddr};
+use tdn_types::{group::GroupId, primitive::PeerId};
 
 /// Group chat app(service) default TDN GROUP ID.
 #[rustfmt::skip]
@@ -180,7 +180,7 @@ pub enum LayerEvent {
     /// join group request. Group ID, Join Proof and info, request db id.
     Request(GroupId, JoinProof),
     /// request need manager to handle.
-    RequestHandle(GroupId, GroupId, PeerAddr, JoinProof, i64, i64),
+    RequestHandle(GroupId, GroupId, PeerId, JoinProof, i64, i64),
     /// manager handle request result. Group ID, request db id, is ok.
     RequestResult(GroupId, i64, bool),
     /// agree join request.
@@ -188,13 +188,13 @@ pub enum LayerEvent {
     /// reject join request. Group ID, if lost efficacy.
     Reject(GroupId, bool),
     /// online group member. Group ID, member id, member address.
-    MemberOnline(GroupId, GroupId, PeerAddr),
+    MemberOnline(GroupId, GroupId, PeerId),
     /// offline group member. Group ID, member id.
     MemberOffline(GroupId, GroupId),
     /// sync online members.
     MemberOnlineSync(GroupId),
     /// sync online members result.
-    MemberOnlineSyncResult(GroupId, Vec<(GroupId, PeerAddr)>),
+    MemberOnlineSyncResult(GroupId, Vec<(GroupId, PeerId)>),
     /// sync group event. Group ID, height, event.
     Sync(GroupId, i64, Event),
     /// packed sync event request. Group ID, from.
@@ -258,9 +258,9 @@ pub enum PackedEvent {
     GroupManagerDel,
     GroupClose,
     /// params: member id, member address, member name, member avatar.
-    MemberInfo(GroupId, PeerAddr, String, Vec<u8>),
+    MemberInfo(GroupId, PeerId, String, Vec<u8>),
     /// params: member id, member address, member name, member avatar, member join time.
-    MemberJoin(GroupId, PeerAddr, String, Vec<u8>, i64),
+    MemberJoin(GroupId, PeerId, String, Vec<u8>, i64),
     /// params: member id,
     MemberLeave(GroupId),
     /// params: member id, message, message time.
@@ -278,9 +278,9 @@ pub enum Event {
     GroupManagerDel,
     GroupClose,
     /// params: member id, member address, member name, member avatar.
-    MemberInfo(GroupId, PeerAddr, String, Vec<u8>),
+    MemberInfo(GroupId, PeerId, String, Vec<u8>),
     /// params: member id, member address, member name, member avatar, member join time.
-    MemberJoin(GroupId, PeerAddr, String, Vec<u8>, i64),
+    MemberJoin(GroupId, PeerId, String, Vec<u8>, i64),
     /// params: member id,
     MemberLeave(GroupId),
     /// params: member id, message, height.
@@ -290,11 +290,11 @@ pub enum Event {
 /// Group chat message type use in network.
 #[derive(Serialize, Deserialize, Clone)]
 pub enum NetworkMessage {
-    String(String),                              // content
-    Image(Vec<u8>),                              // image bytes.
-    File(String, Vec<u8>),                       // filename, file bytes.
-    Contact(String, GroupId, PeerAddr, Vec<u8>), // name, gid, addr, avatar bytes.
-    Record(Vec<u8>, u32),                        // record audio bytes.
+    String(String),                            // content
+    Image(Vec<u8>),                            // image bytes.
+    File(String, Vec<u8>),                     // filename, file bytes.
+    Contact(String, GroupId, PeerId, Vec<u8>), // name, gid, addr, avatar bytes.
+    Record(Vec<u8>, u32),                      // record audio bytes.
     Emoji,
     Phone,
     Video,

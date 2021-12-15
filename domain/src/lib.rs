@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use tdn_did::Proof;
-use tdn_types::{group::GroupId, primitive::PeerAddr};
+use tdn_types::{group::GroupId, primitive::PeerId};
 
 // Same ID can has many name !.
 
@@ -32,7 +32,7 @@ pub enum ServerEvent {
     Result(String, bool),
     /// a identity info.
     /// params: user_name, user_ID, user_address, user_bio, user_avatar.
-    Info(String, GroupId, PeerAddr, String, Vec<u8>),
+    Info(String, GroupId, PeerId, String, Vec<u8>),
     /// not found a user by name.
     None(String),
     /// current name is active.
