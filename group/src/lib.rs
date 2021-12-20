@@ -46,23 +46,16 @@ pub enum LayerEvent {
     SyncReq(GroupId, i64),
     /// sync members status.
     /// Group ID, current height, from height, to height,
-    /// add member(height, id, addr, name, avatar), leaved member.
-    SyncMember(
+    /// add members(height, member id, addr, name, avatar),
+    /// leaved members(height, member id),
+    /// add messages(height, member id, message, time).
+    SyncRes(
         GroupId,
         i64,
         i64,
         i64,
         Vec<(i64, GroupId, PeerId, String, Vec<u8>)>,
-        Vec<GroupId>,
-    ),
-    /// sync message status.
-    /// Group ID, current height, from height, to height,
-    /// add message(height, member id, message, time).
-    SyncMessage(
-        GroupId,
-        i64,
-        i64,
-        i64,
+        Vec<(i64, GroupId)>,
         Vec<(i64, GroupId, NetworkMessage, i64)>,
     ),
 }
@@ -80,8 +73,7 @@ impl LayerEvent {
             Self::MemberOnlineSyncResult(gcd, ..) => gcd,
             Self::Sync(gcd, ..) => gcd,
             Self::SyncReq(gcd, ..) => gcd,
-            Self::SyncMember(gcd, ..) => gcd,
-            Self::SyncMessage(gcd, ..) => gcd,
+            Self::SyncRes(gcd, ..) => gcd,
         }
     }
 }

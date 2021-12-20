@@ -16,7 +16,7 @@ pub enum NetworkMessage {
 }
 
 /// common message types.
-#[derive(Eq, PartialEq)]
+#[derive(Copy, Clone, Eq, PartialEq)]
 pub enum MessageType {
     String,
     Image,
