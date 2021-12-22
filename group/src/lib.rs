@@ -40,6 +40,10 @@ pub enum LayerEvent {
     MemberOnlineSync(GroupId),
     /// sync online members result.
     MemberOnlineSyncResult(GroupId, Vec<(GroupId, PeerId)>),
+    /// Change the group name.
+    GroupName(GroupId, String),
+    /// close the group chat.
+    GroupClose(GroupId),
     /// sync group event. Group ID, height, event.
     Sync(GroupId, i64, Event),
     /// peer sync event request. Group ID, from.
@@ -71,6 +75,8 @@ impl LayerEvent {
             Self::MemberOffline(gcd, ..) => gcd,
             Self::MemberOnlineSync(gcd) => gcd,
             Self::MemberOnlineSyncResult(gcd, ..) => gcd,
+            Self::GroupName(gcd, ..) => gcd,
+            Self::GroupClose(gcd) => gcd,
             Self::Sync(gcd, ..) => gcd,
             Self::SyncReq(gcd, ..) => gcd,
             Self::SyncRes(gcd, ..) => gcd,
@@ -81,12 +87,6 @@ impl LayerEvent {
 /// Group chat event.
 #[derive(Serialize, Deserialize, Clone)]
 pub enum Event {
-    /// transfer group to other memeber's device.
-    GroupTransfer(PeerId),
-    /// Change the group name.
-    GroupName(String),
-    /// close the group chat.
-    GroupClose,
     /// params: member id, member address, member name, member avatar.
     MemberJoin(GroupId, PeerId, String, Vec<u8>),
     /// params: member id,
