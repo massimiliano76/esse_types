@@ -19,9 +19,9 @@ pub const GROUP_CHAT_ID: GroupId = GroupId([
 pub struct LayerConnect(pub GroupId, pub Proof);
 
 /// Group chat connect success result data structure.
-/// params: Group ID, group current height.
+/// params: Group ID, group name, group current height.
 #[derive(Serialize, Deserialize)]
-pub struct LayerResult(pub GroupId, pub i64);
+pub struct LayerResult(pub GroupId, pub String, pub i64);
 
 /// ESSE Group chat app's layer Event.
 #[derive(Serialize, Deserialize)]
@@ -83,6 +83,8 @@ impl LayerEvent {
 pub enum Event {
     /// transfer group to other memeber's device.
     GroupTransfer(PeerId),
+    /// Change the group name.
+    GroupName(String),
     /// close the group chat.
     GroupClose,
     /// params: member id, member address, member name, member avatar.
