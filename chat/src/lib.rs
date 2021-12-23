@@ -13,6 +13,7 @@ pub enum NetworkMessage {
     Phone,
     Video,
     Invite(String),
+    Transfer(String),
 }
 
 /// common message types.
@@ -27,6 +28,7 @@ pub enum MessageType {
     Phone,
     Video,
     Invite,
+    Transfer,
 }
 
 impl MessageType {
@@ -41,6 +43,7 @@ impl MessageType {
             MessageType::Phone => 6,
             MessageType::Video => 7,
             MessageType::Invite => 8,
+            MessageType::Transfer => 9,
         }
     }
 
@@ -55,6 +58,7 @@ impl MessageType {
             6 => MessageType::Phone,
             7 => MessageType::Video,
             8 => MessageType::Invite,
+            9 => MessageType::Transfer,
             _ => MessageType::String,
         }
     }
