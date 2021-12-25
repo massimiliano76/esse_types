@@ -2,7 +2,7 @@
 members = [
     "chat",
     "group",
-    "organization",
+    "dao",
     "domain",
     "cloud",
 ]

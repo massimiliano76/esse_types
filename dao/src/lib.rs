@@ -4,9 +4,9 @@ use tdn_types::{group::GroupId, primitive::PeerId};
 
 use chat_types::NetworkMessage;
 
-/// Organization app(service) default TDN GROUP ID.
+/// Dao app(service) default TDN GROUP ID.
 #[rustfmt::skip]
-pub const ORGANIZATION_ID: GroupId = GroupId([
+pub const DAO_ID: GroupId = GroupId([
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -48,9 +48,9 @@ impl GroupType {
     }
 }
 
-/// OrganizationInfo transfer in the network.
+/// DaoInfo transfer in the network.
 #[derive(Serialize, Deserialize)]
-pub enum OrganizationInfo {
+pub enum DaoInfo {
     /// params: owner, owner_name, owner_avatar, Group ID, group_type, is_must_agree_by_manager,
     /// group_name, group_bio, group_avatar.
     Common(
@@ -79,17 +79,17 @@ pub enum OrganizationInfo {
     ),
 }
 
-/// Organization chat connect data structure.
+/// Dao chat connect data structure.
 /// params: Group ID, join_proof.
 #[derive(Serialize, Deserialize)]
 pub struct LayerConnect(pub GroupId, pub ConnectProof);
 
-/// Organization chat connect success result data structure.
+/// Dao chat connect success result data structure.
 /// params: Group ID, group current height.
 #[derive(Serialize, Deserialize)]
 pub struct LayerResult(pub GroupId, pub i64);
 
-/// Organization chat connect proof.
+/// Dao chat connect proof.
 #[derive(Serialize, Deserialize)]
 pub enum ConnectProof {
     /// when is joined in group chat, can only use had to join (connect).
@@ -100,7 +100,7 @@ pub enum ConnectProof {
     Zkp(Proof), // TODO MOCK-PROOF
 }
 
-/// Organization chat join proof.
+/// Dao chat join proof.
 #[derive(Serialize, Deserialize)]
 pub enum JoinProof {
     /// when join the open group chat.
@@ -138,7 +138,7 @@ impl CheckType {
     }
 }
 
-/// ESSE Organization chat app's layer Event.
+/// ESSE Dao chat app's layer Event.
 #[derive(Serialize, Deserialize)]
 pub enum LayerEvent {
     /// offline. as BaseLayerEvent.
@@ -154,7 +154,7 @@ pub enum LayerEvent {
     CheckResult(CheckType, String, i64, Vec<GroupType>),
     /// create a Group Chat.
     /// params: group_info, proof.
-    Create(OrganizationInfo, Proof),
+    Create(DaoInfo, Proof),
     /// result create group success.
     /// params: Group ID, is_ok.
     CreateResult(GroupId, bool),
@@ -165,7 +165,7 @@ pub enum LayerEvent {
     /// manager handle request result. Group ID, request db id, is ok.
     RequestResult(GroupId, i64, bool),
     /// agree join request.
-    Agree(GroupId, OrganizationInfo),
+    Agree(GroupId, DaoInfo),
     /// reject join request. Group ID, if lost efficacy.
     Reject(GroupId, bool),
     /// online group member. Group ID, member id, member address.
@@ -230,7 +230,7 @@ impl LayerEvent {
     }
 }
 
-/// Organization chat packed event.
+/// Dao chat packed event.
 #[derive(Serialize, Deserialize)]
 pub enum PackedEvent {
     GroupInfo,
@@ -250,7 +250,7 @@ pub enum PackedEvent {
     None,
 }
 
-/// Organization chat event.
+/// Dao chat event.
 #[derive(Serialize, Deserialize, Clone)]
 pub enum Event {
     GroupInfo,
